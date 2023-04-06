@@ -22,7 +22,7 @@ interface Notes {
 }
 
 // Load notes from getServerSideProps server side rendering
-const Home: NextPage<Notes> = ({ notes }) => {
+const Reviews: NextPage<Notes> = ({ notes }) => {
   const [form, setForm] = useState<FormData>({ title: '', content: '', id: '' })
   const [newNote, setNewNote] = useState<Boolean>(true)
   const router = useRouter()
@@ -159,7 +159,7 @@ const Home: NextPage<Notes> = ({ notes }) => {
   )
 }
 
-export default Home
+export default Reviews
 
 // Server side rendering on every request
 export const getServerSideProps: GetServerSideProps = async () => {
