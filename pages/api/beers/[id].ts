@@ -7,15 +7,9 @@ export default async function handler(
 ) {
   const beerId = req.query.id
   const { name, description, id } = req.body
-  // DELETE
-  if (req.method === 'DELETE') {
-    const beer = await prisma.beer.delete({
-      where: { id: String(beerId) }
-    })
-    res.json(beer)
-  }
+
   // UPDATE
-  else if (req.method === 'PUT') {
+  if (req.method === 'PUT') {
     const beer = await prisma.beer.update({
       where: { id: String(beerId) },
       data: {
