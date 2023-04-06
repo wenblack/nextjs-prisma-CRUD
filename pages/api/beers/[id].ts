@@ -5,35 +5,35 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const noteId = req.query.id
-  const { title, content, id } = req.body
+  const beerId = req.query.id
+  const { name, description, id } = req.body
   // DELETE
   if (req.method === 'DELETE') {
-    const note = await prisma.note.delete({
-      where: { id: Number(noteId) }
+    const beer = await prisma.beer.delete({
+      where: { id: String(beerId) }
     })
-    res.json(note)
+    res.json(beer)
   }
   // UPDATE
   else if (req.method === 'PUT') {
-    const note = await prisma.note.update({
-      where: { id: Number(noteId) },
+    const beer = await prisma.beer.update({
+      where: { id: String(beerId) },
       data: {
-        title,
-        content
+        name: name,
+        description: description,
       }
     })
-    res.status(200).json({ message: 'Note updated' })
+    res.status(200).json({ message: 'beer updated' + beer })
   }
   else {
-    const notes = await prisma?.note.findFirst({
+    const beers = await prisma?.beer.findFirst({
       where: {
-        id: Number(noteId)
+        id: String(beerId)
       }
     })
-    if (notes === null) {
+    if (beers === null) {
       res.json('Not found or Excluded')
     }
-    res.json(notes)
+    res.json(beers)
   }
 }

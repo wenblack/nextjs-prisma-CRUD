@@ -5,9 +5,9 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const notes = await prisma?.note.findMany({
+  const notes = await prisma?.beer.findMany({
     orderBy: {
-      updatedAt: 'asc'
+      name: 'asc',
     }
   })
   if (notes.length === 0) {
