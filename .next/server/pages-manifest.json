@@ -2,7 +2,5 @@
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
   "/_document": "pages/_document.js",
-  "/": "pages/index.js",
-  "/api/create": "pages/api/create.js",
-  "/api/note/[id]": "pages/api/note/[id].js"
+  "/": "pages/index.js"
 }
