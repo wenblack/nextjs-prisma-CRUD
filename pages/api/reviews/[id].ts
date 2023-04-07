@@ -11,7 +11,9 @@ export default async function handler(
   // UPDATE
   if (req.method === 'PUT') {
     const review = await prisma.review.update({
-      where: { id: String(reviewId) },
+      where: {
+        id: String(reviewId),
+      },
       data: {
         content: content
       }
