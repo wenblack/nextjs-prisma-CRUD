@@ -5,14 +5,11 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const beers = await prisma?.beer.findMany({
-    orderBy: {
-      note: 'desc',
-    }
+  const notes = await prisma?.user.findMany({
   })
-  if (beers.length === 0) {
+  if (notes.length === 0) {
     res.json('We dont have any beers')
   }
-  res.json(beers)
+  res.json(notes)
 
 }

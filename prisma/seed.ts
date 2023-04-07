@@ -37,6 +37,7 @@ async function main() {
             name: "John Doe",
             emai: "example@example.com",
             avatarUrl: "https:github.com/wenblack.png",
+            password: '123456'
         },
     })
     await prisma.user.create({
@@ -45,6 +46,7 @@ async function main() {
             name: "Zé Gotinha",
             emai: "zegota@vdlk.com",
             avatarUrl: "https:github.com/wenblack.png",
+            password: '123456'
         },
     })
 
@@ -52,7 +54,7 @@ async function main() {
         data: {
             content: "Amazing Beer",
             beerId: idBeerOne,
-            userId: idUserOne
+            userId: idUserOne,
         },
     })
     await prisma.review.create({
