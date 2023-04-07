@@ -20,7 +20,7 @@ export default async function handler(
     })
     res.status(200).json({ message: 'review updated' + review })
   }
-  else {
+  else if (req.method === 'GET') {
     const reviews = await prisma?.review.findFirst({
       where: {
         id: String(reviewId)

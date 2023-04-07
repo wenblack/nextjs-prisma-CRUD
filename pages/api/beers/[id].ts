@@ -7,13 +7,19 @@ export default async function handler(
 ) {
   const beerId = req.query.id
 
-  const beers = await prisma?.beer.findFirst({
-    where: {
-      id: String(beerId)
+  if (req.method === 'GET') {
+    const beers = await prisma?.beer.findFirst({
+      where: {
+        id: String(beerId)
+      }
+    })
+
+    if (beers === null) {
+      res.json('Not found or Excluded')
     }
-  })
-  if (beers === null) {
-    res.json('Not found or Excluded')
+    res.json(beers)
+  } else {
+    res.json('Access Denied')
   }
-  res.json(beers)
+
 }
