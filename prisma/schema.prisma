@@ -10,27 +10,18 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-
-model Note {
-  id Int @id @default(autoincrement())
-  title String
-  content String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
 model User {
   id        String   @id @unique @default(cuid())
   name      String
-  emai      String   @unique
+  emai      String
   avatarUrl String?
   createdAt DateTime @default(now())
   Review    Review[]
 }
 
 model Beer {
-  id String @id @unique @default(cuid())
-  name        String  @unique
+  id          String   @id @unique @default(cuid())
+  name        String   @unique
   description String
   ibu         Int
   note        Int
@@ -38,7 +29,7 @@ model Beer {
   style       String
   birthDay    String
   imgUrl      String?
-  reviews Review[]
+  reviews     Review[]
 }
 
 model Review {
@@ -46,7 +37,7 @@ model Review {
   imgUrl  String?
   content String
   beerId  String
-  user   User   @relation(fields: [userId], references: [id])
-  beer   Beer   @relation(fields: [beerId], references: [id])
-  userId String
+  user    User    @relation(fields: [userId], references: [id])
+  beer    Beer    @relation(fields: [beerId], references: [id])
+  userId  String
 }

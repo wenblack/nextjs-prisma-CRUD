@@ -1,11 +1,15 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client"
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
+const idUserOne = 'clg5thfwm00061jeqel52lodf'
+const idUserTwo = 'clg5thfwm00061jeqel52lodg'
+const idBeerOne = 'clg5thfwm00061jeqel52lldf'
+const idBeerTwo = 'clg5thfwm00061jeqel52lmdf'
 
 async function main() {
-
     await prisma.beer.create({
         data: {
+            id: idBeerOne,
             name: 'stella artois',
             birthDay: '1366',
             description: 'A receita da Stella Artois foi criada, originalmente, como um presente de Natal para os habitantes da pequena cidade de Leuven, na Bélgica. Cristalina, recebeu o nome de Stella, estrela em Latim. Seu aroma suave possui notas maltadas. Suave, uma cerveja com mais de 600 anos de tradição e receita única. ',
@@ -15,9 +19,9 @@ async function main() {
             review: 'Cerveja muito equilibrada e levre, perfeita pra quem de uma cerveja saborosa e de qualidade. Recomendadíssima',
         },
     })
-
     await prisma.beer.create({
         data: {
+            id: idBeerTwo,
             name: 'heineken',
             birthDay: '1873',
             description: 'Onde quer que você vá no mundo, é sempre incrível ver algo que você reconhece. Aquela garrafa verde, a estrela vermelha, o e sorridente ... é como receber as boas-vindas instantâneas de um velho amigo.',
@@ -29,18 +33,37 @@ async function main() {
     })
     await prisma.user.create({
         data: {
+            id: idUserOne,
             name: "John Doe",
             emai: "example@example.com",
             avatarUrl: "https:github.com/wenblack.png",
         },
-    });
+    })
     await prisma.user.create({
         data: {
+            id: idUserTwo,
             name: "Zé Gotinha",
             emai: "zegota@vdlk.com",
+            avatarUrl: "https:github.com/wenblack.png",
         },
-    });
+    })
+
+    await prisma.review.create({
+        data: {
+            content: "Amazing Beer",
+            beerId: idBeerOne,
+            userId: idUserOne
+        },
+    })
+    await prisma.review.create({
+        data: {
+            content: "Wonderfull Beer",
+            beerId: idBeerTwo,
+            userId: idUserTwo
+        },
+    })
 
 
 }
-main();
+main()
+
