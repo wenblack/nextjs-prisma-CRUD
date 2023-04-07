@@ -37,7 +37,7 @@ model Review {
   id      String  @id @default(cuid())
   imgUrl  String?
   content String
-  beerId  String
+  beerId  String  @unique
   user    User    @relation(fields: [userId], references: [id])
   beer    Beer    @relation(fields: [beerId], references: [id])
   userId  String

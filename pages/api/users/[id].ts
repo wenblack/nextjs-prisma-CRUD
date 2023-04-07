@@ -5,35 +5,20 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const reviewId = req.query.id
-  const { content } = req.body
+  const { emai, password } = req.body
 
   // UPDATE
   if (req.method === 'PUT') {
-    const review = await prisma.review.update({
+    const user = await prisma.user.update({
       where: {
-        id: String(reviewId),
+        emai: String(emai)
       },
       data: {
-        content: content
+        password: password
       }
     })
-    res.status(200).json({ message: 'review updated' + review })
-  }
-  else if (req.method === 'GET') {
-    const reviews = await prisma?.review.findFirst({
-      where: {
-        id: String(reviewId)
-      },
-      select: {
-        beer: true,
-        content: true,
-        userId: false
-      }
-    })
-    if (reviews === null) {
-      res.json('Not found or Excluded')
-    }
-    res.json(reviews)
+    res.status(200).json({ message: 'user updated' + String(user) })
+  } else {
+    res.status(400).json('Not Allowed')
   }
 }

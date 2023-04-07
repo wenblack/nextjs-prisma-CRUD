@@ -5,17 +5,21 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const notes = await prisma?.user.findMany({
+  const { emai, password } = req.body
+
+  const users = await prisma?.user.findFirst({
+    where: {
+      emai: String(emai),
+      password: String(password)
+    },
     select: {
-      id: true,
-      name: true,
       emai: true,
+      name: true,
       avatarUrl: true,
     }
   })
-  if (notes.length === 0) {
-    res.json('We dont have any beers')
+  if (users != null) {
+    res.json(true)
   }
-  res.json(notes)
-
+  res.json(false)
 }
