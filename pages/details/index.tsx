@@ -8,12 +8,15 @@ interface BeerProps {
   name: string,
   description: string,
   note: number,
-  count: number
+  ibu: number,
+  review: string,
+  style:string,
+  birthDay: string
 }
 
-const Index  = ({id, name, description, note}:BeerProps)=>{
+const Index  = ({id, name, description, note, birthDay, ibu,review }:BeerProps)=>{
 	const [response, setResponse] = useState(null);
-  const [peopleDetail, setPeopleDetail] = useState({id,name, description, note })
+  const [peopleDetail, setPeopleDetail] = useState({id, name, description, note, birthDay, ibu,review })
 	const fetchQuotes = async () => {
 		try {
 			const res = await axios.get('http://localhost:3000/api/beers/clg5thfwm00061jeqel52lmdf');
@@ -46,6 +49,10 @@ const Index  = ({id, name, description, note}:BeerProps)=>{
                 <div className="flex-1">
                   <h3 className="font-bold">{peopleDetail.name}</h3>
                   <p className="text-sm">{peopleDetail.description}</p>
+                  <p className="text-sm">Produced since :{peopleDetail.birthDay}</p>
+                  <p className="text-sm">IBU: {peopleDetail.ibu}</p>
+                  <p className="text-sm">Note: {peopleDetail.note}</p>
+                  <p className="text-sm">Review: {peopleDetail.review}</p>
                 </div>
               </div>
             </li>
