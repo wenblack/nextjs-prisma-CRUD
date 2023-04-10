@@ -55,96 +55,106 @@ const Index = ({ id, name, description, note, birthDay, ibu, review }: BeerProps
         >
           {peopleDetail.name}
         </Heading >
-        <List p={0} w={'60vw'} maxW={500}>
-          <ListItem
+
+        <Box as='main'
+          display={'flex'}
+          flexDirection={'column'}
+          borderWidth='1px'
+          borderRadius='lg'
+          overflow='hidden'
+          justifyContent={'center'}
+          alignItems={'center'}
+          width={'full'}
+          paddingBottom={20}
+        >
+          <Image
+            src={"https://www.heineken.com/media-la/01pfxdqq/heineken-original-bottle.png?anchor=center&mode=crop&width=570&height=854&quality=85"}
+            alt={peopleDetail.name}
+            width={"10vw"}
+          />
+          <Badge
+            borderRadius='full'
+            px='4'
+            colorScheme='teal'
+            mt={2}
           >
-            <Box
+            Premium Lager
+          </Badge>
+          <HStack justifyContent={'center'} display={'flex'} mt={2} w='full'>
+            {Array(10)
+              .fill('')
+              .map((_, i) => (
+                <StarIcon
+                  key={i}
+                  width={'3'}
+                  color={i < peopleDetail.note ? 'green.700' : 'blackAlpha.500'}
+                />
+              ))}
+          </HStack>
+          <VStack flexDirection={'column'} width={'100%'} display={'flex'} justifyContent={'flex-start'}>
+            <Box display='flex' mt='2'>
+              {peopleDetail.note}/10
+
+            </Box>
+            <Box as='span' color='gray.900' fontSize='sm'>
+              IBU: {peopleDetail.ibu}
+            </Box>
+          </VStack>
+          <Tabs
+            borderColor={'gray.300'}
+            w={'full'}
+            isLazy
+            mt={5}
+            colorScheme='green'
+            color={'gray.500'}
+          >
+
+            <TabList
               display={'flex'}
-              flexDirection={'column'}
-              borderWidth='1px'
-              borderRadius='lg'
-              overflow='hidden'
               justifyContent={'center'}
               alignItems={'center'}
-              width={'full'}
-              paddingBottom={20}
             >
-              <Image
-                src={"https://www.heineken.com/media-la/01pfxdqq/heineken-original-bottle.png?anchor=center&mode=crop&width=570&height=854&quality=85"}
-                alt={peopleDetail.name}
-                width={"10vw"}
-              />
-              <Badge
-                borderRadius='full'
-                px='4'
-                colorScheme='teal'
-                mt={2}
-              >
-                Premium Lager
-              </Badge>
-              <HStack justifyContent={'center'} display={'flex'} mt={2} w='full'>
-                {Array(10)
-                  .fill('')
-                  .map((_, i) => (
-                    <StarIcon
-                      key={i}
-                      width={'3'}
-                      color={i < peopleDetail.note ? 'green.700' : 'blackAlpha.500'}
-                    />
-                  ))}
-              </HStack>
-              <VStack flexDirection={'column'} width={'100%'} display={'flex'} justifyContent={'flex-start'}>
-                <Box display='flex' mt='2'>
-                  {peopleDetail.note}/10
-
-                </Box>
-                <Box as='span' color='gray.900' fontSize='sm'>
-                  IBU: {peopleDetail.ibu}
-                </Box>
-              </VStack>
-              <Tabs
-                borderColor={'gray.300'}
-                w={'full'}
-                isLazy
-                mt={5}
-                colorScheme='green'
-                color={'gray.500'}
-              >
-
-                <TabList
+              <Tab >
+                <HamburgerIcon mr={2} />História
+              </Tab>
+              <Tab>
+                <ChatIcon mr={2} />Análises
+              </Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel
+                display={'flex'}
+                justifyContent={'center'}
+                alignItems={'center'}>
+                <Box
+                  mt={5}
                   display={'flex'}
+                  w={'60vw'}
+                  textAlign={'justify'}
+                  color={'gray.900'}
                   justifyContent={'center'}
-
+                  maxW={500}
                 >
-                  <Tab>
-                    <HamburgerIcon mr={2} />História</Tab>
-                  <Tab><ChatIcon mr={2} />Análises</Tab>
-                </TabList>
-                <TabPanels>
-                  <TabPanel>
-                    <Box textAlign={'justify'} color={'gray.900'}>
-                      {peopleDetail.description}
-                    </Box>
-                  </TabPanel>
-                  <TabPanel>
-                    <Box textAlign={'justify'} as='span' color='gray.900' fontSize='sm'>
-                      Análise: {peopleDetail.review}
-                    </Box>
-                  </TabPanel>
-                </TabPanels>
-              </Tabs>
-
-              <Box >
-                <Box mt={10} display='flex' gap={15} flexDirection={'column'}>
-
-
-
-
+                  {peopleDetail.description}
                 </Box>
-              </Box>
-            </Box>
-          </ListItem>
-        </List>
+              </TabPanel>
+              <TabPanel
+                display={'flex'}
+                justifyContent={'center'}
+                alignItems={'center'}
+              >
+                <Box mt={5}
+                  display={'flex'}
+                  w={'60vw'}
+                  textAlign={'justify'}
+                  color={'gray.900'}
+                  maxW={500}>
+                  Análise: {peopleDetail.review}
+                </Box>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </Box>
       </Flex>
     </VStack>
   )
