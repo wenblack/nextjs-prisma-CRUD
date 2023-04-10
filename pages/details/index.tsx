@@ -1,37 +1,38 @@
-import { VStack, Image } from '@chakra-ui/react'
+import { StarIcon, InfoIcon, HamburgerIcon, ChatIcon } from '@chakra-ui/icons';
+import { VStack, Text, Tabs, Tab, TabPanel, TabPanels, TabList, Image, Badge, Box, Flex, ListItem, List, Heading, HStack } from '@chakra-ui/react'
 import axios from 'axios';
 import Head from 'next/head'
 import { useState, useEffect } from 'react';
 
 interface BeerProps {
-   id: number,
+  id: number,
   name: string,
   description: string,
   note: number,
   ibu: number,
   review: string,
-  style:string,
+  style: string,
   birthDay: string
 }
 
-const Index  = ({id, name, description, note, birthDay, ibu,review }:BeerProps)=>{
-	const [response, setResponse] = useState(null);
-  const [peopleDetail, setPeopleDetail] = useState({id, name, description, note, birthDay, ibu,review })
-	const fetchQuotes = async () => {
-		try {
-			const res = await axios.get('http://localhost:3000/api/beers/clg5thfwm00061jeqel52lmdf');
-			setResponse(res.data);
+const Index = ({ id, name, description, note, birthDay, ibu, review }: BeerProps) => {
+  const [response, setResponse] = useState(null);
+  const [peopleDetail, setPeopleDetail] = useState({ id, name, description, note, birthDay, ibu, review })
+  const fetchQuotes = async () => {
+    try {
+      const res = await axios.get('http://localhost:3000/api/beers/clg5k8l0f0002mwpbumqexd9k');
+      setResponse(res.data);
       setPeopleDetail(res.data)
       console.log(res.data)
-		} catch (err) {
-			console.log(err);
-		}
-	};
-	useEffect(() => {
-		// Trigger the API Call
-		fetchQuotes();
-	}, []);
-	  return (
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    // Trigger the API Call
+    fetchQuotes();
+  }, []);
+  return (
     <VStack>
       <Head>
         <title>Beers</title>
@@ -39,26 +40,113 @@ const Index  = ({id, name, description, note, birthDay, ibu,review }:BeerProps)=
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-     
-  
-      <div className="w-auto min-w-[25%] max-w-min mt-10 mx-auto space-y-6 flex flex-col items-stretch">
-         <h1 className="text-center font-bold text-2xl m-4">Details:</h1>
-        <ul>
-            <li key={peopleDetail.id } className="border-b border-gray-600 p-2">
-              <div className="flex jusify-between">
-                <div className="flex-1">
-                  <h3 className="font-bold">{peopleDetail.name}</h3>
-                  <p className="text-sm">{peopleDetail.description}</p>
-                  <p className="text-sm">Produced since :{peopleDetail.birthDay}</p>
-                  <p className="text-sm">IBU: {peopleDetail.ibu}</p>
-                  <p className="text-sm">Note: {peopleDetail.note}</p>
-                  <p className="text-sm">Review: {peopleDetail.review}</p>
-                </div>
-              </div>
-            </li>
-        </ul>
-      </div>
-      </VStack>
+
+
+      <Flex
+        direction={'column'}
+        justifyContent={'center'}
+        alignItems={'center'}
+        w='full'
+        h='full'
+      >
+        <Heading
+          textTransform={'uppercase'}
+          color={'green.600'}
+        >
+          {peopleDetail.name}
+        </Heading >
+        <List p={0} w={'60vw'} maxW={500}>
+          <ListItem
+          >
+            <Box
+              display={'flex'}
+              flexDirection={'column'}
+              borderWidth='1px'
+              borderRadius='lg'
+              overflow='hidden'
+              justifyContent={'center'}
+              alignItems={'center'}
+              width={'full'}
+              paddingBottom={20}
+            >
+              <Image
+                src={"https://www.heineken.com/media-la/01pfxdqq/heineken-original-bottle.png?anchor=center&mode=crop&width=570&height=854&quality=85"}
+                alt={peopleDetail.name}
+                width={"10vw"}
+              />
+              <Badge
+                borderRadius='full'
+                px='4'
+                colorScheme='teal'
+                mt={2}
+              >
+                Premium Lager
+              </Badge>
+              <HStack justifyContent={'center'} display={'flex'} mt={2} w='full'>
+                {Array(10)
+                  .fill('')
+                  .map((_, i) => (
+                    <StarIcon
+                      key={i}
+                      width={'3'}
+                      color={i < peopleDetail.note ? 'green.700' : 'blackAlpha.500'}
+                    />
+                  ))}
+              </HStack>
+              <VStack flexDirection={'column'} width={'100%'} display={'flex'} justifyContent={'flex-start'}>
+                <Box display='flex' mt='2'>
+                  {peopleDetail.note}/10
+
+                </Box>
+                <Box as='span' color='gray.900' fontSize='sm'>
+                  IBU: {peopleDetail.ibu}
+                </Box>
+              </VStack>
+              <Tabs
+                borderColor={'gray.300'}
+                w={'full'}
+                isLazy
+                mt={5}
+                colorScheme='green'
+                color={'gray.500'}
+              >
+
+                <TabList
+                  display={'flex'}
+                  justifyContent={'center'}
+
+                >
+                  <Tab>
+                    <HamburgerIcon mr={2} />História</Tab>
+                  <Tab><ChatIcon mr={2} />Análises</Tab>
+                </TabList>
+                <TabPanels>
+                  <TabPanel>
+                    <Box textAlign={'justify'} color={'gray.900'}>
+                      {peopleDetail.description}
+                    </Box>
+                  </TabPanel>
+                  <TabPanel>
+                    <Box textAlign={'justify'} as='span' color='gray.900' fontSize='sm'>
+                      Análise: {peopleDetail.review}
+                    </Box>
+                  </TabPanel>
+                </TabPanels>
+              </Tabs>
+
+              <Box >
+                <Box mt={10} display='flex' gap={15} flexDirection={'column'}>
+
+
+
+
+                </Box>
+              </Box>
+            </Box>
+          </ListItem>
+        </List>
+      </Flex>
+    </VStack>
   )
 }
 
